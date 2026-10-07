@@ -1,5 +1,5 @@
 # Tern Tab Ring — cross-host circular tab navigation for Tern
-# Tested with Tern 0.4.5 (1d14241).
+# Fully validated on Tern 0.5.3 (b7f1010); earlier fully qualified on 0.4.5 (1d14241).
 schema = 1
 id = "tern-tab-ring"
 name = "Tern Tab Ring"

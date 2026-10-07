@@ -20,14 +20,13 @@ local:1 → local:2 → remote:1 → remote:2 → local:1
 
 ## Requirements
 
-Tested with Tern 0.4.5 (`1d14241`). The renamed deployment also passed a narrow
-navigation smoke check on Tern 0.5.3 (`b7f1010`) with a 0.4.5 host attached.
-Other versions may work but are not yet validated.
+Fully validated on Tern 0.5.3 (`b7f1010`). The same implementation was earlier fully
+qualified on Tern 0.4.5 (`1d14241`). Other versions may work but are not validated.
 
 ## Installation
 
 ```bash
-tern plugin install github.com/ripperonincheez/tern-tab-ring
+tern plugin install github.com/WumboLabs/tern-tab-ring
 ```
 
 Open a fresh Tern window after installation to verify the integration with your attached hosts.
@@ -58,10 +57,10 @@ Removal restores native action behavior without rewriting settings.
 
 ## Updating
 
-Tern 0.4.5 has no separate plugin-update command. Replace an installed copy using:
+Tern (through 0.5.3) has no separate plugin-update command. Replace an installed copy using:
 
 ```bash
-tern plugin install github.com/ripperonincheez/tern-tab-ring --force
+tern plugin install github.com/WumboLabs/tern-tab-ring --force
 ```
 
 `--force` replaces an installed copy, never a linked one. For a linked checkout, update its
@@ -77,9 +76,11 @@ same ring. Host identity is not inferred from tab or pane IDs.
 ## Security / scope
 
 The implementation is window-only, with no external dependencies. It does not intentionally
-execute subprocesses, run shell commands, make HTTP/network requests, read credentials,
-create sessions or tabs for navigation, or install host services. Cross-host access uses
-Tern's existing attached-host model. The plugin does not mutate `settings.json`.
+execute subprocesses, run shell commands, make HTTP/network requests, read credentials, read
+or write arbitrary files, create sessions or tabs for navigation, or install host services.
+Cross-host access uses Tern's existing attached-host model. The plugin does not mutate
+`settings.json`. See [SECURITY.md](SECURITY.md) for the security policy and how to report
+vulnerabilities.
 
 ## Known Tern behavior
 
@@ -91,11 +92,16 @@ Tern's existing attached-host model. The plugin does not mutate `settings.json`.
 
 ## Validation
 
-Validated local and cross-host forward/reverse traversal, circular wrap,
-disconnected-host handling, reconnect, and unlink/relink rollback on the tested build.
-The public-ID migration was additionally checked in a fresh window with real navigation
-chords. Native direct-tab shortcuts remain separate from the two overridden actions.
+Fully validated on Tern 0.5.3 (`b7f1010`) across both participating hosts: plugin
+health, local forward/reverse circular traversal, cross-host traversal with wrap in
+both directions, deterministic multi-session ordering, disconnected-host handling with
+automatic reconnect, single-destination no-op, existing keybinding integrity, dynamic
+topology (tab creation/removal, host availability), state safety, and unlink/relink
+rollback with native behavior in between. The same implementation was previously fully
+qualified on Tern 0.4.5 (`1d14241`). Native direct-tab shortcuts remain separate from
+the two overridden actions.
 
 ## License
 
-MIT. A personal open-source project by [ripperonincheez](https://github.com/ripperonincheez).
+MIT. A [WumboLabs](https://github.com/WumboLabs) project, authored and maintained by
+[ripperonincheez](https://github.com/ripperonincheez).

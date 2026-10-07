@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 — 2026-10-06
+## 0.1.0 — 2026-10-07
 
 - Cross-host circular tab navigation.
 - Exact forward/reverse traversal with Alt+Right / Alt+Left.

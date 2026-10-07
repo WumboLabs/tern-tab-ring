@@ -106,10 +106,8 @@ local function guarded(delta)
 	end
 end
 
--- Registered through the RR table so callers always see the current RR.step.
-tern.override("next_tab", function(cx)
-	return RR.step(cx, 1)
-end)
-tern.override("previous_tab", function(cx)
-	return RR.step(cx, -1)
-end)
+-- Registered through guarded and the RR table so every step sees the current
+-- RR.step, a failing traversal is logged instead of half-firing into the
+-- built-in, and the chord is always consumed.
+tern.override("next_tab", guarded(1))
+tern.override("previous_tab", guarded(-1))
