@@ -2,26 +2,56 @@
 
 Cross-host circular tab navigation for Tern.
 
-**Alt+Right** advances through all tabs across connected hosts as one circular ring:
+## Current Tern versions
 
-```text
-local:1 → local:2 → remote:1 → remote:2 → local:1
-```
+Tern 0.6.0 provides native `next_tab_across_sessions` and
+`previous_tab_across_sessions` actions that reproduce Tern Tab Ring v0.1.0's tested
+core circular cross-session/cross-host navigation behavior. On Tern 0.6.0, prefer
+these native actions rather than installing this plugin solely for that behavior.
 
-**Alt+Left** walks the exact same ring in reverse. Existing native keybindings stay in place.
+Tab Ring was originally developed and validated against Tern 0.4.5, where these
+action IDs did not exist. Tern introduced them in 0.5.2; they are present in 0.5.3.
+Native behavioral equivalence was empirically verified on 0.6.0, not on 0.5.2 or 0.5.3.
+
+The repository remains available as an older-build compatibility/reference
+implementation and for possible future extensions beyond native core navigation.
 
 ## Features
 
 - One continuous tab ring across connected hosts, with forward/reverse traversal.
 - Transparent host boundaries; no host picker.
-- Disconnected hosts skipped; reconnecting hosts dynamically rejoin.
+- Disconnected hosts skipped; hosts restored to the attached set rejoin the ring.
 - Native Tern `next_tab` / `previous_tab` overrides; no settings rewrite.
 - Safe no-op with fewer than two destinations.
 
 ## Requirements
 
 Fully validated on Tern 0.5.3 (`b7f1010`). The same implementation was earlier fully
-qualified on Tern 0.4.5 (`1d14241`). Other versions may work but are not validated.
+qualified on Tern 0.4.5 (`1d14241`). On Tern 0.6.0, release 0.1.0 passed
+compatibility qualification when enabled and bound to its overridden
+`next_tab` / `previous_tab` actions. Other versions are not validated.
+
+## Native replacement on Tern 0.6.0
+
+Stock Tern 0.6.0 ships these actions without default shortcuts. Bind them as desired.
+For Alt+Right / Alt+Left, merge these entries into `settings.json`'s existing
+`keybinds` object, preserving unrelated bindings:
+
+```json
+{
+  "keybinds": {
+    "alt+right": "next_tab_across_sessions",
+    "alt+left": "previous_tab_across_sessions"
+  }
+}
+```
+
+Tab Ring overrides `next_tab` / `previous_tab`; it does not register Alt chords.
+Bindings to the across-session actions use native navigation, not the plugin.
+Disable Tab Ring when using the native replacement. Bindings that still target
+`next_tab` / `previous_tab`, including leader n/p if configured that way, return to
+ordinary session-local navigation when the plugin is disabled; migrating those
+bindings is a separate choice.
 
 ## Installation
 
@@ -89,17 +119,30 @@ vulnerabilities.
 - Tern's shown-session state is daemon-global. Switching a remote session can also be
   reflected by another window attached to that daemon. This is native Tern behavior,
   not a plugin defect.
+- Rejoin is validated for supported host re-add / restoration lifecycles: a re-added
+  host rejoins the ring on the next invocation, and a fresh window automatically
+  reattaches saved hosts. Automatic rejoin after a true transport outage (network drop
+  or remote service interruption) in an existing window has not been proven and should
+  not be assumed.
 
 ## Validation
 
 Fully validated on Tern 0.5.3 (`b7f1010`) across both participating hosts: plugin
 health, local forward/reverse circular traversal, cross-host traversal with wrap in
-both directions, deterministic multi-session ordering, disconnected-host handling with
-automatic reconnect, single-destination no-op, existing keybinding integrity, dynamic
-topology (tab creation/removal, host availability), state safety, and unlink/relink
-rollback with native behavior in between. The same implementation was previously fully
-qualified on Tern 0.4.5 (`1d14241`). Native direct-tab shortcuts remain separate from
-the two overridden actions.
+both directions, deterministic multi-session ordering, disconnected-host skip with
+rejoin across host removal/restoration lifecycles, single-destination no-op, existing
+keybinding integrity, dynamic topology (tab creation/removal, host availability), state
+safety, and unlink/relink rollback with native behavior in between. The same
+implementation was previously fully qualified on Tern 0.4.5 (`1d14241`). Native
+direct-tab shortcuts remain separate from the two overridden actions.
+
+On Tern 0.6.0, release 0.1.0 additionally passed compatibility qualification when
+enabled and bound to its overridden actions. Native equivalence covered local tabs,
+multiple sessions, attached hosts, forward/reverse wrap, exact inverse traversal,
+deterministic ordering for the same topology, explicit disconnected-host removal,
+supported re-add, single-destination no-op, no picker and no navigation-side settings
+mutation. Automatic reconnect/rejoin after a true transport outage remains unproven
+for both native and plugin paths.
 
 ## Attribution
 
