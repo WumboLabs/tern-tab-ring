@@ -1,0 +1,8 @@
+# Tern Tab Ring — cross-host circular tab navigation for Tern
+# Tested with Tern 0.4.5 (1d14241).
+schema = 1
+id = "tern-tab-ring"
+name = "Tern Tab Ring"
+version = "0.1.0"
+description = "Cross-host circular tab navigation for Tern."
+window = "window.luau"
