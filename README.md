@@ -101,6 +101,11 @@ rollback with native behavior in between. The same implementation was previously
 qualified on Tern 0.4.5 (`1d14241`). Native direct-tab shortcuts remain separate from
 the two overridden actions.
 
+## Attribution
+
+Built for [Tern](https://stencil.so/tern) by Stencil Labs. Tern Tab Ring is a
+third-party WumboLabs plugin and is not affiliated with or endorsed by Stencil Labs.
+
 ## License
 
 MIT. A [WumboLabs](https://github.com/WumboLabs) project, authored and maintained by

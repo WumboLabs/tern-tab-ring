@@ -13,13 +13,12 @@ until superseded by a newer release; older releases do not receive separate secu
 
 ## Reporting a vulnerability
 
-Please report vulnerabilities privately through GitHub's private vulnerability reporting:
+Private vulnerability reporting is enabled for this repository:
 
 <https://github.com/WumboLabs/tern-tab-ring/security/advisories/new>
 
-The repository owner must enable private vulnerability reporting when publishing.
-If that reporting path is unavailable, open a public issue asking the maintainer to enable
-it. Do not include vulnerability details, exploit code, credentials, or sensitive logs.
+Please report security issues through that private channel. Do not put unpatched
+vulnerability details, exploit code, credentials, or sensitive logs in a public issue.
 
 Please do not post or otherwise disclose an unpatched vulnerability publicly. When
 reporting, include the plugin version, the Tern version, and the steps needed to reproduce
